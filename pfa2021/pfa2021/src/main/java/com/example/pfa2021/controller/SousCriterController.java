@@ -1,16 +1,22 @@
 package com.example.pfa2021.controller;
 
 
-import com.example.pfa2021.entities.Criter;
-import com.example.pfa2021.entities.SousCriter;
-import com.example.pfa2021.repository.SousCriterRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.pfa2021.entities.SousCriter;
+import com.example.pfa2021.repository.SousCriterRepository;
 
 @RestController
 @RequestMapping("souscriters")
@@ -63,7 +69,7 @@ public class SousCriterController {
     public ResponseEntity<Double> updateSousCriterWeight(@PathVariable Long souscriterId, @RequestBody Double poids) {
         Optional<SousCriter> sousCriterOptional = sousCriterRepository.findById(souscriterId.intValue());
 
-        if (sousCriterOptional.isEmpty()) {
+        if (sousCriterOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -81,7 +87,7 @@ public class SousCriterController {
     public ResponseEntity<Double> updateSubCriteriaCr(@PathVariable Long souscriterId, @RequestBody Double cr) {
         Optional<SousCriter> sousCriterOptional = sousCriterRepository.findById(souscriterId.intValue());
 
-        if (sousCriterOptional.isEmpty()) {
+        if (sousCriterOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
